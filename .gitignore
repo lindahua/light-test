@@ -1,12 +1,8 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
+# binary files
 
-# Compiled Dynamic libraries
-*.so
+bin/*
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
+# Eclipse projects
+
+.project
+.cproject
