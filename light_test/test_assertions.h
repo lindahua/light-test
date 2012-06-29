@@ -91,7 +91,7 @@ namespace ltest
 		{
 			for (TInt i = 0; i < m; ++i)
 			{
-				if (!( a(i, j) != b(i, j) )) return false;
+				if (!( a(i, j) == b(i, j) )) return false;
 			}
 		}
 		return true;
