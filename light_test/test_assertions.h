@@ -14,6 +14,7 @@
 #define LIGHT_TEST_TEST_ASSERTIONS_H_
 
 #include "base.h"
+#include "float_accuracy.h"
 #include <cmath>
 
 namespace ltest
