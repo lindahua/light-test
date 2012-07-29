@@ -16,6 +16,7 @@
 #include "base.h"
 #include "float_accuracy.h"
 #include <cmath>
+#include <cstring>
 
 namespace ltest
 {
@@ -130,6 +131,12 @@ namespace ltest
 
 #define ASSERT_NE( a, b ) \
 	if (!((a) != (b))) throw ::ltest::assertion_failure(__FILE__, __LINE__, #a " != " #b)
+
+#define ASSERT_APPROX( a, b, tol ) \
+	if ( std::fabs((a) - (b)) > tol ) throw ::ltest::assertion_failure(__FILE__, __LINE__, #a " ~= " #b)
+
+#define ASSERT_STREQ( a, b ) \
+	if (!(std::string(a) == std::string(b))) throw ::ltest::assertion_failure(__FILE__, __LINE__, #a " == " #b)
 
 #define ASSERT_VEC_EQ( n, a, b ) \
 	if (!::ltest::test_vector_equal(n, a, b)) \
