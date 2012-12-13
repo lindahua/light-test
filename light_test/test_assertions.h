@@ -135,6 +135,15 @@ namespace ltest
 #define ASSERT_APPROX( a, b, tol ) \
 	if ( std::fabs((a) - (b)) > tol ) throw ::ltest::assertion_failure(__FILE__, __LINE__, #a " ~= " #b)
 
+#define ASSERT_ULP( a, b, dtol ) \
+	if ( ::ltest::ulp_distance(a, b) > dtol ) throw ::ltest::assertion_failure(__FILE__, __LINE__, "ULP(" #a ", " #b ") <= " #dtol)
+
+#define ASSERT_CT_VALUE( T, V ) \
+	if (!((T::value) == (V))) throw ::ltest::assertion_failure(__FILE__, __LINE__, #T "::value == " #V)
+
+#define ASSERT_SAME_TYPE( T, R ) \
+	if (!std::is_same<T, R>::value) throw ::ltest::assertion_failure(__FILE__, __LINE__, #T " is " #R)
+
 #define ASSERT_STREQ( a, b ) \
 	if (!(std::string(a) == std::string(b))) throw ::ltest::assertion_failure(__FILE__, __LINE__, #a " == " #b)
 
