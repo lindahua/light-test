@@ -76,11 +76,11 @@ namespace ltest
 #define LTEST_INIT_AUTOSUITE ltest::shared_ptr<ltest::test_suite> ltest::auto_test_suite::m_psuite;
 
 #define AUTO_TPACK( PackName ) \
-	class ltest_pack_##PackName : public auto_test_pack { \
+	class ltest_pack_##PackName : public ltest::auto_test_pack { \
 	public: \
 		ltest_pack_##PackName(); }; \
 	ltest_pack_##PackName ltest_pack_##PackName##_instance; \
-	ltest_pack_##PackName::ltest_pack_##PackName() : auto_test_pack( #PackName )
+	ltest_pack_##PackName::ltest_pack_##PackName() : ltest::auto_test_pack( #PackName )
 
 
 #define ADD_TESTCASE( ClassName ) this->add(new ClassName());
