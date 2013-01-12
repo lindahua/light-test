@@ -15,6 +15,8 @@
 
 using namespace ltest;
 
+LTEST_INIT_AUTOSUITE
+
 template<typename T>
 struct NumPair
 {
@@ -249,9 +251,6 @@ AUTO_TPACK( valarray )
 	ADD_TESTCASE( valarray_vec<float> )
 	ADD_TESTCASE( valarray_vec<double> )
 }
-
-
-LTEST_INIT_AUTOSUITE
 
 int main(int argc, char *argv[])
 {
