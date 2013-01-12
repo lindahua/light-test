@@ -68,12 +68,13 @@ namespace ltest
 		test_pack* m_ppack;
 	};
 
-
 }
 
 // Useful macros
 
-#define LTEST_INIT_AUTOSUITE ltest::shared_ptr<ltest::test_suite> ltest::auto_test_suite::m_psuite;
+
+
+#define LTEST_INIT_AUTOSUITE extern ltest::shared_ptr<ltest::test_suite> ltest::auto_test_suite::m_psuite;
 
 #define AUTO_TPACK( PackName ) \
 	class ltest_pack_##PackName : public ltest::auto_test_pack { \
