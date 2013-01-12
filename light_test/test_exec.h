@@ -71,15 +71,18 @@ namespace ltest
 	inline size_t execute_suite(test_suite& tsuite, test_monitor& mon)
 	{
 		size_t npassed = 0;
+		size_t nfinished = 0;
 
 		mon.on_suite_begin(tsuite);
 
 		for (size_t i = 0; i < tsuite.size(); ++i)
 		{
-			npassed += execute_pack(tsuite.tpack(i), mon);
+			test_pack& tp = tsuite.tpack(i);
+			npassed += execute_pack(tp, mon);
+			nfinished += tp.size();
 		}
 
-		mon.on_suite_end(tsuite, npassed);
+		mon.on_suite_end(tsuite, nfinished, npassed);
 		return npassed;
 	}
 

@@ -27,6 +27,9 @@ namespace ltest
 	public:
 		std_test_monitor()
 		{
+			m_csuite = 0;
+			m_cpack = 0;
+
 			m_isuite = 0;
 			m_ipack = 0;
 			m_icase = 0;
@@ -59,11 +62,11 @@ namespace ltest
 			print_suite_begin(tsuite);
 		}
 
-		virtual void on_suite_end(const test_suite& tsuite, size_t npassed_cases)
+		virtual void on_suite_end(const test_suite& tsuite, size_t nfinished_cases, size_t npassed_cases)
 		{
-			print_suite_end(tsuite, npassed_cases);
+			print_suite_end(tsuite, nfinished_cases, npassed_cases);
 
-			m_finished_cases += tsuite.num_cases();
+			m_finished_cases += nfinished_cases;
 			m_passed_cases += npassed_cases;
 
 			m_ipack = 0;
@@ -113,13 +116,13 @@ namespace ltest
 			printf_with_color(color_sepline, "=============================================\n");
 		}
 
-		void print_suite_end(const test_suite& tsuite, size_t npassed_cases)
+		void print_suite_end(const test_suite& tsuite, size_t nfinished_cases, size_t npassed_cases)
 		{
 			printf_with_color(color_sepline, "=============================================\n");
 			printf_with_color(color_unittype, "Test Suite ");
 			printf_with_color_bold(color_unitname, "%s ", tsuite.name());
 			printf_with_color_bold(color_stats, "%lu / %lu cases passed\n",
-					npassed_cases, tsuite.num_cases());
+					npassed_cases, nfinished_cases);
 
 			std::printf("\n");
 		}
@@ -151,7 +154,7 @@ namespace ltest
 		{
 			if (m_cpack)
 			{
-				std::string title = std::string(m_cpack->name()) + "." + tcase.name();
+				std::string title = tcase.name();
 
 				printf_with_color(color_unittype, "  [%3lu / %3lu]: ",
 						m_icase, m_cpack->size());

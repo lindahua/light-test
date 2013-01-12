@@ -26,7 +26,7 @@ namespace ltest
 
 		virtual void on_suite_begin(const test_suite& tsuite) { }
 
-		virtual void on_suite_end(const test_suite& tsuite, size_t npassed_cases) { }
+		virtual void on_suite_end(const test_suite& tsuite, size_t nfinished_cases, size_t npassed_cases) { }
 
 		virtual void on_pack_begin(const test_pack& tpack) { }
 

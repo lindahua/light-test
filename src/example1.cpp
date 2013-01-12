@@ -15,8 +15,7 @@
 
 using namespace ltest;
 
-ltest::test_suite main_suite("Main");
-
+LTEST_INIT_AUTOSUITE
 
 template<typename T>
 struct NumPair
@@ -122,12 +121,11 @@ public:
 };
 
 
-
 template<typename T>
 class numpair_constructs : public my_test_base<T>
 {
 public:
-	numpair_constructs() : my_test_base<T>("constructs") { }
+	numpair_constructs() : my_test_base<T>("numpair_constructs") { }
 
 	void run()
 	{
@@ -140,7 +138,7 @@ template<typename T>
 class numpair_arith : public my_test_base<T>
 {
 public:
-	numpair_arith() : my_test_base<T>("arith") { }
+	numpair_arith() : my_test_base<T>("numpair_arith") { }
 
 	void run()
 	{
@@ -156,7 +154,7 @@ template<typename T>
 class numtriple_constructs : public my_test_base<T>
 {
 public:
-	numtriple_constructs() : my_test_base<T>("constructs") { }
+	numtriple_constructs() : my_test_base<T>("numtriple_constructs") { }
 
 	void run()
 	{
@@ -169,7 +167,7 @@ template<typename T>
 class numtriple_arith : public my_test_base<T>
 {
 public:
-	numtriple_arith() : my_test_base<T>("arith") { }
+	numtriple_arith() : my_test_base<T>("numtriple_arith") { }
 
 	void run()
 	{
@@ -185,7 +183,7 @@ template<typename T>
 class numtriple_raise : public my_test_base<T>
 {
 public:
-	numtriple_raise() : my_test_base<T>("raise") { }
+	numtriple_raise() : my_test_base<T>("numtriple_raise") { }
 
 	void run()
 	{
@@ -202,7 +200,7 @@ public:
 	static const size_t N = 6;
 
 	valarray_vec()
-	: my_test_base<T>("compare"), x(N), y(N) { }
+	: my_test_base<T>("valarray_compare"), x(N), y(N) { }
 
 	std::valarray<T> x, y;
 
@@ -230,58 +228,34 @@ public:
 
 // organize test suites
 
-test_pack* numpair_pack()
+AUTO_TPACK( numpair )
 {
-	test_pack* p = new test_pack("numpair");
-
-	p->add(new numpair_constructs<float>());
-	p->add(new numpair_constructs<double>());
-
-	p->add(new numpair_arith<float>());
-	p->add(new numpair_arith<double>());
-
-	return p;
+	ADD_TESTCASE( numpair_constructs<float> )
+	ADD_TESTCASE( numpair_constructs<double> )
+	ADD_TESTCASE( numpair_arith<float> )
+	ADD_TESTCASE( numpair_arith<double> )
 }
 
-test_pack* numtriple_pack()
+AUTO_TPACK( numtriple )
 {
-	test_pack* p = new test_pack("numtriple");
-
-	p->add(new numtriple_constructs<float>());
-	p->add(new numtriple_constructs<double>());
-
-	p->add(new numtriple_arith<float>());
-	p->add(new numtriple_arith<double>());
-
-	p->add(new numtriple_raise<float>());
-	p->add(new numtriple_raise<double>());
-
-	return p;
+	ADD_TESTCASE( numtriple_constructs<float> )
+	ADD_TESTCASE( numtriple_constructs<double> )
+	ADD_TESTCASE( numtriple_arith<float> )
+	ADD_TESTCASE( numtriple_arith<double> )
+	ADD_TESTCASE( numtriple_raise<float> )
+	ADD_TESTCASE( numtriple_raise<double> )
 }
 
-test_pack* valarray_pack()
+AUTO_TPACK( valarray )
 {
-	test_pack *p = new test_pack("valarray");
-
-	p->add(new valarray_vec<float>());
-	p->add(new valarray_vec<double>());
-
-	return p;
+	ADD_TESTCASE( valarray_vec<float> )
+	ADD_TESTCASE( valarray_vec<double> )
 }
 
-
-
-void add_tests()
-{
-	main_suite.add(numpair_pack());
-	main_suite.add(numtriple_pack());
-	main_suite.add(valarray_pack());
-}
 
 int main(int argc, char *argv[])
 {
-	add_tests();
-	std_test_main(main_suite);
+	std_test_main(*auto_test_suite::main_suite());
 }
 
 

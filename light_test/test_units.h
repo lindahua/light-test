@@ -49,6 +49,8 @@ namespace ltest
 		{
 		}
 
+		virtual ~test_pack() { }
+
 	public:
 		const char *name() const
 		{
@@ -86,12 +88,12 @@ namespace ltest
 	{
 	public:
 		test_suite( const char *name )
-		: m_name(name), m_ncases(0)
+		: m_name(name)
 		{
 		}
 
 		test_suite( const std::string& name )
-		: m_name(name), m_ncases(0)
+		: m_name(name)
 		{
 		}
 
@@ -104,17 +106,11 @@ namespace ltest
 		void add(test_pack *ppack)
 		{
 			m_packs.push_back(shared_ptr<test_pack>(ppack));
-			m_ncases += ppack->size();
 		}
 
 		size_t size() const
 		{
 			return m_packs.size();
-		}
-
-		size_t num_cases() const
-		{
-			return m_ncases;
 		}
 
 		const test_pack& tpack(size_t i) const
@@ -130,7 +126,6 @@ namespace ltest
 	private:
 		std::string m_name;
 		std::vector<shared_ptr<test_pack> > m_packs;
-		size_t m_ncases;
 
 	}; // end class test_suite
 

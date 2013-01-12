@@ -14,6 +14,6 @@
 #define LIGHT_TEST_TESTS_H_
 
 #include "test_exec.h"   // this also include other useful headers
-
+#include "auto_suite.h"
 
 #endif /* TESTS_H_ */

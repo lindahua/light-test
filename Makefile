@@ -40,6 +40,7 @@ HEADERS = \
 	$(INC)/test_units.h \
 	$(INC)/test_mon.h \
 	$(INC)/test_exec.h \
+	${INC}/auto_suite.h \
 	$(INC)/tests.h \
 	$(INC)/color_printf.h \
 	$(INC)/std_test_mon.h
