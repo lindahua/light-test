@@ -7,6 +7,7 @@
  */
 
 
+#define LTEST_MAINSUITE_NAME "Main"
 #include "../light_test/tests.h"
 #include "../light_test/std_test_mon.h"
 
@@ -14,8 +15,6 @@
 #include <valarray>
 
 using namespace ltest;
-
-LTEST_INIT_AUTOSUITE
 
 template<typename T>
 struct NumPair
@@ -223,9 +222,6 @@ public:
 	}
 };
 
-
-
-
 // organize test suites
 
 AUTO_TPACK( numpair )
@@ -254,7 +250,7 @@ AUTO_TPACK( valarray )
 
 int main(int argc, char *argv[])
 {
-	std_test_main(*auto_test_suite::main_suite());
+	std_test_main(auto_main_suite());
 }
 
 

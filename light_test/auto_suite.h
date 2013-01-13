@@ -16,34 +16,29 @@
 #include "test_units.h"
 #include <cstdio>
 
-#ifndef LTEST_MAINSUITE_NAME
-#define LTEST_MAINSUITE_NAME "Main"
-#endif
-
 namespace ltest
 {
 
-	class auto_test_suite
+	extern test_suite& auto_main_suite();
+
+#ifdef LTEST_MAINSUITE_NAME
+	test_suite& auto_main_suite()
 	{
-	public:
-		static test_suite* main_suite()
-		{
-			if (!m_psuite)
-			{
-				m_psuite.reset(new test_suite(LTEST_MAINSUITE_NAME));
-			}
+		static shared_ptr<test_suite> psuite;
 
-			return m_psuite.get();
+		if (!psuite)
+		{
+			psuite.reset(new test_suite(LTEST_MAINSUITE_NAME));
 		}
 
-		static void register_testpack(test_pack* tpack)
-		{
-			main_suite()->add(tpack);
-		}
+		return *psuite;
+	}
+#endif
 
-	private:
-		static shared_ptr<test_suite> m_psuite;
-	};
+	inline void register_testpack(test_pack* tpack)
+	{
+		auto_main_suite().add(tpack);
+	}
 
 
 	class auto_test_pack
@@ -52,7 +47,7 @@ namespace ltest
 		auto_test_pack(const char* name)
 		{
 			m_ppack = new test_pack(name);
-			auto_test_suite::register_testpack(m_ppack);
+			register_testpack(m_ppack);
 		}
 
 		void add(test_case* pcase)
@@ -72,9 +67,6 @@ namespace ltest
 
 // Useful macros
 
-
-
-#define LTEST_INIT_AUTOSUITE extern ltest::shared_ptr<ltest::test_suite> ltest::auto_test_suite::m_psuite;
 
 #define AUTO_TPACK( PackName ) \
 	class ltest_pack_##PackName : public ltest::auto_test_pack { \
