@@ -36,6 +36,7 @@ BIN=bin
 
 HEADERS = \
 	$(INC)/base.h \
+	$(INC)/str_template.h \
 	$(INC)/test_assertions.h \
 	$(INC)/test_units.h \
 	$(INC)/test_mon.h \
@@ -43,13 +44,13 @@ HEADERS = \
 	${INC}/auto_suite.h \
 	$(INC)/tests.h \
 	$(INC)/color_printf.h \
-	$(INC)/std_test_mon.h
-	
+	$(INC)/std_test_mon.h \
+	$(INC)/benchmark.h
 
 #---------- Target groups -------------------
 
 .PHONY: all
-all: $(BIN)/example1
+all: $(BIN)/example1 $(BIN)/str_example
 
 .PHONY: clean
 
@@ -62,7 +63,8 @@ clean:
 $(BIN)/example1: $(HEADERS) $(SRC)/example1.cpp
 	$(CXX) $(CXXFLAGS) $(SRC)/example1.cpp -o $@
 
-
+$(BIN)/str_example: $(HEADERS) $(SRC)/str_example.cpp
+	$(CXX) $(CXXFLAGS) $(SRC)/str_example.cpp -o $@
 
 
 

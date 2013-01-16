@@ -17,6 +17,66 @@
 
 namespace ltest
 {
+	class runtime_span
+	{
+	public:
+		LTEST_ENSURE_INLINE
+		static runtime_span from_nsecs(double ns)
+		{
+			return runtime_span(ns);
+		}
+
+		LTEST_ENSURE_INLINE
+		static runtime_span from_usecs(double us)
+		{
+			return runtime_span(us * 1.0e3);
+		}
+
+		LTEST_ENSURE_INLINE
+		static runtime_span from_msecs(double ms)
+		{
+			return runtime_span(ms * 1.0e6);
+		}
+
+		LTEST_ENSURE_INLINE
+		static runtime_span from_secs(double s)
+		{
+			return runtime_span(s * 1.0e9);
+		}
+
+	public:
+
+		LTEST_ENSURE_INLINE
+		double secs() const { return m_ns * 1.0e-9; }
+
+		LTEST_ENSURE_INLINE
+		double msecs() const { return m_ns * 1.0e-6; }
+
+		LTEST_ENSURE_INLINE
+		double usecs() const { return m_ns * 1.0e-3; }
+
+		LTEST_ENSURE_INLINE
+		double nsecs() const { return m_ns; }
+
+		LTEST_ENSURE_INLINE
+		double ps(size_t n) const { return double(n) * 1.0e9 / m_ns; }
+
+		LTEST_ENSURE_INLINE
+		double kps(size_t n) const { return double(n) * 1.0e6 / m_ns; }
+
+		LTEST_ENSURE_INLINE
+		double mps(size_t n) const { return double(n) * 1.0e3 / m_ns; }
+
+		LTEST_ENSURE_INLINE
+		double gps(size_t n) const { return double(n) / m_ns; }
+
+	private:
+		LTEST_ENSURE_INLINE
+		runtime_span(double ns) : m_ns(ns) { }
+
+		double m_ns;
+	};
+
 	class timer
 	{
 		typedef typename internal::timer_impl::time_type time_type;
@@ -31,6 +91,12 @@ namespace ltest
 		void start()
 		{
 			m_impl.get_current_time(m_start_t);
+		}
+
+		LTEST_ENSURE_INLINE
+		runtime_span elapsed() const
+		{
+			return runtime_span::from_nsecs(elapsed_nsecs());
 		}
 
 		LTEST_ENSURE_INLINE
