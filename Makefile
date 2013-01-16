@@ -45,12 +45,13 @@ HEADERS = \
 	$(INC)/tests.h \
 	$(INC)/color_printf.h \
 	$(INC)/std_test_mon.h \
+	$(INC)/std_bench_mon.h \
 	$(INC)/benchmark.h
 
 #---------- Target groups -------------------
 
 .PHONY: all
-all: $(BIN)/example1 $(BIN)/str_example
+all: $(BIN)/example1 $(BIN)/str_example $(BIN)/example2
 
 .PHONY: clean
 
@@ -66,7 +67,8 @@ $(BIN)/example1: $(HEADERS) $(SRC)/example1.cpp
 $(BIN)/str_example: $(HEADERS) $(SRC)/str_example.cpp
 	$(CXX) $(CXXFLAGS) $(SRC)/str_example.cpp -o $@
 
-
+$(BIN)/example2: $(HEADERS) $(SRC)/example2.cpp
+	$(CXX) $(CXXFLAGS) $(SRC)/example2.cpp -o $@
 
 	
 	
