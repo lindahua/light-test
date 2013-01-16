@@ -16,6 +16,7 @@ CPPFLAGS = -I.
 ifeq ($(UNAME), Linux)
 	CXX=g++
 	CXXFLAGS = -std=c++0x -pedantic -march=native $(WARNING_FLAGS) $(CPPFLAGS) 
+	LTIMER=-lrt
 endif
 
 ifeq ($(UNAME), Darwin)
@@ -68,7 +69,7 @@ $(BIN)/str_example: $(HEADERS) $(SRC)/str_example.cpp
 	$(CXX) $(CXXFLAGS) $(SRC)/str_example.cpp -o $@
 
 $(BIN)/example2: $(HEADERS) $(SRC)/example2.cpp
-	$(CXX) $(CXXFLAGS) $(SRC)/example2.cpp -o $@
+	$(CXX) $(CXXFLAGS) -O3 $(SRC)/example2.cpp $(LTIMER) -o $@
 
 	
 	
