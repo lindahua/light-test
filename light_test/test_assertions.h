@@ -81,7 +81,7 @@ namespace ltest
 	{
 		for (TInt i = 0; i < n; ++i)
 		{
-			if ( std::fabs(a[i] - b[i]) > tol ) return false;
+			if (!( std::fabs(a[i] - b[i]) <= tol )) return false;
 		}
 		return true;
 	}
@@ -106,7 +106,7 @@ namespace ltest
 		{
 			for (TInt i = 0; i < m; ++i)
 			{
-				if ( std::fabs(a(i,j) - b(i,j)) > tol ) return false;
+				if (!( std::fabs(a(i,j) - b(i,j)) <= tol )) return false;
 			}
 		}
 		return true;
@@ -133,7 +133,7 @@ namespace ltest
 	if (!((a) != (b))) throw ::ltest::assertion_failure(__FILE__, __LINE__, #a " != " #b)
 
 #define ASSERT_APPROX( a, b, tol ) \
-	if ( std::fabs((a) - (b)) > tol ) throw ::ltest::assertion_failure(__FILE__, __LINE__, #a " ~= " #b)
+	if (!( std::fabs((a) - (b)) <= tol )) throw ::ltest::assertion_failure(__FILE__, __LINE__, #a " ~= " #b)
 
 #define ASSERT_ULP( a, b, dtol ) \
 	if ( ::ltest::ulp_distance(a, b) > dtol ) throw ::ltest::assertion_failure(__FILE__, __LINE__, "ULP(" #a ", " #b ") <= " #dtol)
