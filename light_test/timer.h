@@ -79,7 +79,7 @@ namespace ltest
 
 	class timer
 	{
-		typedef typename internal::timer_impl::time_type time_type;
+		typedef internal::timer_impl::time_type time_type;
 	public:
 		LTEST_ENSURE_INLINE
 		explicit timer( bool to_start = false )
