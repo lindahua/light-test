@@ -76,6 +76,16 @@ namespace ltest
 		return true;
 	}
 
+    template<typename TInt, class VecA, typename T>
+    inline bool test_vector_equals(TInt n, const VecA& a, const T& v)
+    {
+        for (TInt i = 0; i < n; ++i)
+        {
+            if (!(a[i] == v)) return false;
+        }
+        return true;
+    }
+
 	template<typename TInt, class VecA, class VecB, typename T>
 	inline bool test_vector_approx(TInt n, const VecA& a, const VecB& b, T tol)
 	{
@@ -98,6 +108,19 @@ namespace ltest
 		}
 		return true;
 	}
+
+    template<typename TInt, class MatA, typename T>
+    inline bool test_matrix_equals(TInt m, TInt n, const MatA& a, const T& v)
+    {
+        for (TInt j = 0; j < n; ++j)
+        {
+            for (TInt i = 0; i < m; ++i)
+            {
+                if (!( a(i, j) == v )) return false;
+            }
+        }
+        return true;
+    }
 
 	template<typename TInt, class MatA, class MatB, typename T>
 	inline bool test_matrix_approx(TInt m, TInt n, const MatA& a, const MatB& b, T tol)
@@ -151,9 +174,17 @@ namespace ltest
 	if (!::ltest::test_vector_equal(n, a, b)) \
 		throw ::ltest::assertion_failure(__FILE__, __LINE__, #a "[0:" #n "] == " #b "[0:" #n "]" )
 
+#define ASSERT_VEC_EQS( n, a, v ) \
+    if (!::ltest::test_vector_equals(n, a, v)) \
+        throw ::ltest::assertion_failure(__FILE__, __LINE__, #a "[0:" #n "] == " #v )
+
 #define ASSERT_MAT_EQ( m, n, a, b ) \
 	if (!::ltest::test_matrix_equal(m, n, a, b)) \
 		throw ::ltest::assertion_failure(__FILE__, __LINE__, #a "[0:" #m ", 0:" #n "] == " #b "[0:" #m ", 0:" #n "]")
+
+#define ASSERT_MAT_EQS( m, n, a, v ) \
+    if (!::ltest::test_matrix_equals(m, n, v)) \
+        throw ::ltest::assertion_failure(__FILE__, __LINE__, #a "[0:" #m ", 0:" #n "] == " #v )
 
 #define ASSERT_VEC_APPROX( n, a, b, tol ) \
 	if (!::ltest::test_vector_approx(n, a, b, tol)) \
